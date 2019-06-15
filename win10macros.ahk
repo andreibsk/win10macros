@@ -1,4 +1,4 @@
-#SingleInstance, force
+﻿#SingleInstance, force
 
 ; Ctrl+F12 terminates the script.
 ^F12::ExitApp
@@ -48,7 +48,7 @@ IsActiveWindowFullScreen() {
 	WinGetActiveStats, Title, Width, Height, X, Y
 	; Ignore explorer vlc chrome
 	if WinActive("ahk_exe explorer.exe") || WinActive("ahk_exe vlc.exe")
-		|| WinActive("ahk_exe chrome.exe")
+		|| WinActive("ahk_exe chrome.exe") || WinActive("ahk_exe PlexMediaPlayer.exe")
 		return false
 	return (X == 0) && (Y == 0) && (Width == A_ScreenWidth)
 		&& (Height == A_ScreenHeight)
