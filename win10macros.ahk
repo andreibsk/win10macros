@@ -3,19 +3,6 @@
 ; Ctrl+F12 terminates the script.
 ^F12::ExitApp
 
-; Pause = suspend pc
-Pause::DllCall("PowrProf\SetSuspendState", "Int", 0, "Int", 0, "Int", 0)
-!Pause::Send, {Pause}
-
-; MouseButton4 = Task View
-XButton1::Send, #{TAB}
-
-; Mouse = navigate between virtual desktops if in Task View
-#IfWinActive, ahk_class MultitaskingViewFrame
-WheelDown::Send, ^#{Right}
-WheelUp::Send, ^#{Left}
-#IfWinActive
-
 ; Right most column 10 pixels wide
 #If IsMouseInRightArea() && !IsActiveWindowFullScreen()
 ; MouseWheel = Volume adjust
