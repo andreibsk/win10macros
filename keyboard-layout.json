@@ -347,7 +347,10 @@
     },
     "J\n\n\n\n\n\n\n\n\n<i class='fa fa-long-arrow-left'></i>",
     "K\n\n\n\n\n\n\n\n\n<i class='fa fa-long-arrow-down'></i>",
-    "L\n\n\n\n\n\n\n\n\n<i class='fa fa-long-arrow-right'></i>",
+    {
+      "t": "#1B5E20\n\n\n\n#FF7043\n\n\n\n\n\n#bd5d44"
+    },
+    "L\n\n\n\n▀▀▀▀▀▀▀\n\n\n\n\n<i class='fa fa-long-arrow-right'></i>\n<b>Lock</b>",
     {
       "t": "#1B5E20\n\n\n\n#2196F3\n\n\n\n\n\n#0D47A1",
       "fa": [
@@ -467,10 +470,20 @@
     },
     "Win",
     {
+      "c": "#FF7043",
+      "t": "#000000",
+      "fa": [
+        4
+      ],
       "w": 1.25
     },
-    "Menu",
+    "<b>Menu</b>",
     {
+      "c": "#cccccc",
+      "t": "#888888",
+      "fa": [
+        2
+      ],
       "w": 1.25
     },
     "Ctrl",

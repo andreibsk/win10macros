@@ -41,8 +41,8 @@ IsActiveWindowFullScreen() {
 		&& (Height == A_ScreenHeight)
 }
 
-; Left backslash (between shift and z)
-;SC056:: ; not used now
+; Menu button + L = Lock
+AppsKey & L::DllCall("LockWorkStation")
 
 ; === Right Alt hotkeys ===================================================================================
 ; RO chars
