@@ -81,53 +81,12 @@ IsActiveWindowFullScreen() {
 ; Alt+` to open Task View
 !SC29::Send, #{Tab}
 
-; Fn = media keys
-$F5::SendInput, {Media_Play_Pause}
-$F6::SendInput, {Volume_Down}
-$F7::SendInput, {Volume_Up}
-$F8::SendInput, {Media_Prev}
-$F9::SendInput, {Media_Next}
-
-; Alt+Fn = Fn
-!F5::SendInput, {F5}
-^!F5::SendInput, ^{F5}
-+!F5::SendInput, +{F5}
-#!F5::SendInput, #{F5}
-^+!F5::SendInput, ^+{F5}
-^#!F5::SendInput, ^#{F5}
-+#!F5::SendInput, +#{F5}
-
-!F6::SendInput, {F6}
-^!F6::SendInput, ^{F6}
-+!F6::SendInput, +{F6}
-#!F6::SendInput, #{F6}
-^+!F6::SendInput, ^+{F6}
-^#!F6::SendInput, ^#{F6}
-+#!F6::SendInput, +#{F6}
-
-!F7::SendInput, {F7}
-^!F7::SendInput, ^{F7}
-+!F7::SendInput, +{F7}
-#!F7::SendInput, #{F7}
-^+!F7::SendInput, ^+{F7}
-^#!F7::SendInput, ^#{F7}
-+#!F7::SendInput, +#{F7}
-
-!F8::SendInput, {F8}
-^!F8::SendInput, ^{F8}
-+!F8::SendInput, +{F8}
-#!F8::SendInput, #{F8}
-^+!F8::SendInput, ^+{F8}
-^#!F8::SendInput, ^#{F8}
-+#!F8::SendInput, +#{F8}
-
-!F9::SendInput, {F9}
-^!F9::SendInput, ^{F9}
-+!F9::SendInput, +{F9}
-#!F9::SendInput, #{F9}
-^+!F9::SendInput, ^+{F9}
-^#!F9::SendInput, ^#{F9}
-+#!F9::SendInput, +#{F9}
+; Alt+ZXASD media keys
+!Z::SendInput, {Volume_Down}
+!X::SendInput, {Volume_Up}
+!A::SendInput, {Media_Prev}
+!S::SendInput, {Media_Play_Pause}
+!D::SendInput, {Media_Next}
 
 ; Alt+IJKL = arrows
 ; *!I::SendInput, {Blind}{AltUp}{Up}{AltDown}
