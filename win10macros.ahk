@@ -13,18 +13,6 @@ RButton::Send, {Media_Next}
 ; Middle click = Play/Pause
 MButton::Send, {Media_Play_Pause}
 
-; Monitor control using Dell Display Manager
-#If IsMouseInRightArea() && FileExist("C:\Program Files (x86)\Dell\Dell Display Manager\ddm.exe")
-; Ctrl+MouseWheel = Brightness
-^WheelUp::Run *RunAs "C:\Program Files (x86)\Dell\Dell Display Manager\ddm.exe" /IncControl 10
-; ^WheelUp::DllCall("PowrProf\SetSuspendState", "int", 0, "int", 0, "int", 0)
-^WheelDown::Run *RunAs "C:\Program Files (x86)\Dell\Dell Display Manager\ddm.exe" /DecControl 10
-^RButton::
-	VarSetCapacity(PT, 8, 0)
-	result := DllCall("User32.dll\MonitorFromPoint", "Int64", (1 & 0xFFFFFFFF) | (1 << 32), "Int", 0, "Ptr")
-	MsgBox % "result=" . result
-	return
-
 #If, IsMouseOverSpotify()
 MButton::Send, {Media_Next}
 
