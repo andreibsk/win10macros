@@ -3,8 +3,8 @@
 ; Ctrl+F12 terminates the script.
 ^F12::ExitApp
 
-; Right most column 10 pixels wide
-#If IsMouseInRightArea() && !IsActiveWindowFullScreen()
+; 10 pixels wide margin
+#If IsMouseInVerticalMargin() && !IsActiveWindowFullScreen()
 ; MouseWheel = Volume adjust
 WheelUp::Send, {Volume_Up}
 WheelDown::Send, {Volume_Down}
@@ -154,10 +154,10 @@ IsActiveWindowFullScreen() {
 		&& (Height == A_ScreenHeight)
 }
 
-IsMouseInRightArea() {
+IsMouseInVerticalMargin() {
 	CoordMode, Mouse, Screen
 	MouseGetPos, mouseX, mouseY
-	return (mouseX > (A_ScreenWidth - 10))
+	return mouseX < 10 || (mouseX > (A_ScreenWidth - 10))
 }
 
 IsMouseOverSpotify() {
