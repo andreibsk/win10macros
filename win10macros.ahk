@@ -24,25 +24,11 @@ MButton::Send, {Media_Play_Pause}
 	result := DllCall("User32.dll\MonitorFromPoint", "Int64", (1 & 0xFFFFFFFF) | (1 << 32), "Int", 0, "Ptr")
 	MsgBox % "result=" . result
 	return
+
+#If, IsMouseOverSpotify()
+MButton::Send, {Media_Next}
+
 #If
-
-IsMouseInRightArea() {
-	CoordMode, Mouse, Screen
-	MouseGetPos, mouseX, mouseY
-	return (mouseX > (A_ScreenWidth - 10))
-}
-IsActiveWindowFullScreen() {
-	WinGetActiveStats, Title, Width, Height, X, Y
-	; Ignore explorer vlc chrome
-	if WinActive("ahk_exe explorer.exe") || WinActive("ahk_exe vlc.exe")
-		|| WinActive("ahk_exe chrome.exe") || WinActive("ahk_exe PlexMediaPlayer.exe") || WinActive("ahk_exe Plex.exe")
-		return false
-	return (X == 0) && (Y == 0) && (Width == A_ScreenWidth)
-		&& (Height == A_ScreenHeight)
-}
-
-; Left backslash (between shift and z)
-;SC056:: ; not used now
 
 ; === Right Alt hotkeys ===================================================================================
 ; RO chars
@@ -166,3 +152,28 @@ IsActiveWindowFullScreen() {
 +!O::SendInput, +^{Right}
 #!O::SendInput, #^{Right}
 +#!O::SendInput, +#^{Right}
+
+
+; === Functions ===================================================================================
+
+IsActiveWindowFullScreen() {
+	WinGetActiveStats, Title, Width, Height, X, Y
+	; Ignore explorer vlc chrome
+	if WinActive("ahk_exe explorer.exe") || WinActive("ahk_exe vlc.exe")
+		|| WinActive("ahk_exe chrome.exe") || WinActive("ahk_exe PlexMediaPlayer.exe") || WinActive("ahk_exe Plex.exe")
+		return false
+	return (X == 0) && (Y == 0) && (Width == A_ScreenWidth)
+		&& (Height == A_ScreenHeight)
+}
+
+IsMouseInRightArea() {
+	CoordMode, Mouse, Screen
+	MouseGetPos, mouseX, mouseY
+	return (mouseX > (A_ScreenWidth - 10))
+}
+
+IsMouseOverSpotify() {
+	MouseGetPos, , , windowId
+	WinGet, name, ProcessName, ahk_id %windowId%
+	return name = "Spotify.exe"
+}
