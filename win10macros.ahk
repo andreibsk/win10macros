@@ -3,11 +3,12 @@
 ; Ctrl+F12 terminates the script.
 ^F12::ExitApp
 
-; 10 pixels wide margin
-#If IsMouseInVerticalMargin() && !IsActiveWindowFullScreen()
+#If IsMouseInVerticalMargin() && (!IsActiveWindowFullScreen() || IsActiveWindowFullScreenException())
 ; MouseWheel = Volume adjust
 WheelUp::Send, {Volume_Up}
 WheelDown::Send, {Volume_Down}
+
+#If IsMouseInVerticalMargin() && (!IsActiveWindowFullScreen() || IsActiveWindowFullScreenException()) && !IsActiveWindowMediaKeysException()
 ; Right click = Next
 RButton::Send, {Media_Next}
 ; Middle click = Play/Pause
@@ -144,14 +145,29 @@ MButton::Send, {Media_Next}
 
 ; === Functions ===================================================================================
 
+IsActiveWindowFullScreenException() {
+	WinGetActiveStats, Title, Width, Height, X, Y
+
+	if WinActive("ahk_exe explorer.exe") || WinActive("ahk_exe vlc.exe") || WinActive("ahk_exe chrome.exe")
+		|| WinActive("ahk_exe PlexMediaPlayer.exe") || WinActive("ahk_exe Plex.exe") || WinActive("ahk_exe steam.exe")
+		|| WinActive("ahk_exe Code.exe") || WinActive("ahk_exe Teams.exe") || WinActive("ahk_exe Skype.exe")
+		return true
+
+	return false
+}
+
+IsActiveWindowMediaKeysException() {
+	WinGetActiveStats, Title, Width, Height, X, Y
+
+	if WinActive("ahk_exe PlexMediaPlayer.exe")
+		return true
+
+	return false
+}
+
 IsActiveWindowFullScreen() {
 	WinGetActiveStats, Title, Width, Height, X, Y
-	; Ignore explorer vlc chrome
-	if WinActive("ahk_exe explorer.exe") || WinActive("ahk_exe vlc.exe")
-		|| WinActive("ahk_exe chrome.exe") || WinActive("ahk_exe PlexMediaPlayer.exe") || WinActive("ahk_exe Plex.exe")
-		return false
-	return (X == 0) && (Y == 0) && (Width == A_ScreenWidth)
-		&& (Height == A_ScreenHeight)
+	return (X == 0) && (Y == 0) && (Width == A_ScreenWidth) && (Height == A_ScreenHeight)
 }
 
 IsMouseInVerticalMargin() {
