@@ -1,7 +1,7 @@
 ﻿#SingleInstance, force
 
-; Ctrl+F12 terminates the script.
-^F12::ExitApp
+; Ctrl+Alt+F12 terminates the script.
+^!F12::ExitApp
 
 #If IsMouseInVerticalMargin() && (!IsActiveWindowFullScreen() || IsActiveWindowFullScreenException())
 ; MouseWheel = Volume adjust
