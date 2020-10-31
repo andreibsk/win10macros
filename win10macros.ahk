@@ -14,8 +14,12 @@ RButton::Send, {Media_Next}
 ; Middle click = Play/Pause
 MButton::Send, {Media_Play_Pause}
 
-#If, IsMouseOverSpotify()
+#If IsMouseOverSpotify()
 MButton::Send, {Media_Next}
+
+#If IsMouseOverVSCode()
+~MButton::SendInput, {F12}
+~^MButton::SendInput, ^{F12}
 
 #If
 
@@ -180,4 +184,11 @@ IsMouseOverSpotify() {
 	MouseGetPos, , , windowId
 	WinGet, name, ProcessName, ahk_id %windowId%
 	return name = "Spotify.exe"
+}
+
+IsMouseOverVSCode() {
+	MouseGetPos, , , windowId
+	WinGet, name, ProcessName, ahk_id %windowId%
+	MouseGetPos, mouseX, mouseY
+	return name = "Code.exe" && mouseY >= 172
 }
