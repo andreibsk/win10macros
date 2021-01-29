@@ -1,4 +1,5 @@
 ﻿#SingleInstance, force
+#MaxThreadsPerHotkey 2
 
 ; Ctrl+Alt+F12 terminates the script.
 ^!F12::ExitApp
@@ -18,8 +19,25 @@ MButton::Send, {Media_Play_Pause}
 MButton::Send, {Media_Next}
 
 #If IsMouseOverVSCode()
-~MButton::SendInput, {F12}
-~^MButton::SendInput, ^{F12}
+~$MButton::VSCodeGoTo()
+VSCodeGoTo() {
+	static singleMButtonWait := false
+
+	if singleMButtonWait {
+		singleMButtonWait := false
+		SendInput, {F12}
+		return
+	}
+
+	singleMButtonWait := true
+	Sleep, 150
+
+	if singleMButtonWait {
+		singleMButtonWait := false
+		SendInput, ^{F12}
+	}
+	return
+}
 
 #If
 
@@ -190,5 +208,6 @@ IsMouseOverVSCode() {
 	MouseGetPos, , , windowId
 	WinGet, name, ProcessName, ahk_id %windowId%
 	MouseGetPos, mouseX, mouseY
+	; 172px for editor tabs - keep middle click close behavior
 	return name = "Code.exe" && mouseY >= 172
 }
