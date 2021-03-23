@@ -189,13 +189,17 @@ IsActiveWindowMediaKeysException() {
 
 IsActiveWindowFullScreen() {
 	WinGetActiveStats, Title, Width, Height, X, Y
-	return (X == 0) && (Y == 0) && (Width == A_ScreenWidth) && (Height == A_ScreenHeight)
+	return Width == A_ScreenWidth && Height == A_ScreenHeight
 }
 
 IsMouseInVerticalMargin() {
+	; https://www.autohotkey.com/docs/commands/SysGet.htm
+	SysGet, SM_XVIRTUALSCREEN, 76
+	SysGet, SM_CXVIRTUALSCREEN, 78
+
 	CoordMode, Mouse, Screen
 	MouseGetPos, mouseX, mouseY
-	return mouseX < 10 || (mouseX > (A_ScreenWidth - 10))
+	return mouseX - SM_XVIRTUALSCREEN < 10 || mouseX - SM_XVIRTUALSCREEN > SM_CXVIRTUALSCREEN - 10
 }
 
 IsMouseOverSpotify() {
