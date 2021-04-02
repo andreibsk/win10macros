@@ -194,12 +194,18 @@ IsActiveWindowFullScreen() {
 
 IsMouseInVerticalMargin() {
 	; https://www.autohotkey.com/docs/commands/SysGet.htm
+	; each screen has the width of the main screen no matter how many real pixels
+	; and virtual screen will always have width of nr screens times main width
 	SysGet, SM_XVIRTUALSCREEN, 76
 	SysGet, SM_CXVIRTUALSCREEN, 78
 
 	CoordMode, Mouse, Screen
-	MouseGetPos, mouseX, mouseY
-	return mouseX - SM_XVIRTUALSCREEN < 10 || mouseX - SM_XVIRTUALSCREEN > SM_CXVIRTUALSCREEN - 10
+	MouseGetPos, mouseX
+
+	mouseX -= SM_XVIRTUALSCREEN ; normalize: (0, 0) becomes left corner of virtual screen
+	mouseX := Mod(mouseX, A_ScreenWidth) ; get coord on current screen
+
+	return mouseX < 10 || mouseX > A_ScreenWidth - 10
 }
 
 IsMouseOverSpotify() {
