@@ -1,5 +1,12 @@
+﻿#NoEnv
+#Warn
 #SingleInstance, force
 #MaxThreadsPerHotkey 2
+
+SendMode, Input
+SetKeyDelay, -1 ; No delay for SendEvent calls
+
+; https://www.autohotkey.com/docs/Hotkeys.htm#Symbols
 
 ; Ctrl+Alt+F12 terminates the script.
 ^!F12::ExitApp
@@ -25,7 +32,7 @@ VSCodeGoTo() {
 
 	if singleMButtonWait {
 		singleMButtonWait := false
-		SendInput, {F12}
+		Send, {F12}
 		return
 	}
 
@@ -34,7 +41,7 @@ VSCodeGoTo() {
 
 	if singleMButtonWait {
 		singleMButtonWait := false
-		SendInput, ^{F12}
+		Send, ^{F12}
 	}
 	return
 }
@@ -45,7 +52,7 @@ VSCodeFoldLevel3() {
 
 	if singleRButtonWait {
 		singleRButtonWait := false
-		SendEvent, {Esc}^k^3
+		Send, {Esc}^k^3
 		return
 	}
 
@@ -54,7 +61,7 @@ VSCodeFoldLevel3() {
 
 	if singleRButtonWait {
 		singleRButtonWait := false
-		SendEvent, {RButton}
+		Send, {RButton}
 	}
 	return
 }
@@ -63,126 +70,127 @@ VSCodeFoldLevel3() {
 
 ; === Right Alt hotkeys ===================================================================================
 ; RO chars
->!A::SendInput, {U+0103} ; ă
->!+A::SendInput, {U+0102} ; Ă
->!Q::SendInput, {U+00E2} ; â
->!+Q::SendInput, {U+00C2} ; Â
->!S::SendInput, {U+0219} ; ș
->!+S::SendInput, {U+0218} ; Ș
->!T::SendInput, {U+021B} ; ț
->!+T::SendInput, {U+021A} ; Ț
->!I::SendInput, {U+00EE} ; î
->!+I::SendInput, {U+00CE} ; Î
+>!A::Send, {U+0103} ; ă
+>!+A::Send, {U+0102} ; Ă
+>!Q::Send, {U+00E2} ; â
+>!+Q::Send, {U+00C2} ; Â
+>!S::Send, {U+0219} ; ș
+>!+S::Send, {U+0218} ; Ș
+>!T::Send, {U+021B} ; ț
+>!+T::Send, {U+021A} ; Ț
+>!I::Send, {U+00EE} ; î
+>!+I::Send, {U+00CE} ; Î
 
 ; DE chars
->!'::SendInput, {U+00E4} ; ä
->!+'::SendInput, {U+00C4} ; Ä
->!;::SendInput, {U+00F6} ; ö
->!+;::SendInput, {U+00D6} ; Ö
->![::SendInput, {U+00FC} ; ü
->!+[::SendInput, {U+00DC} ; Ü
->!-::SendInput, {U+00DF} ; ß
+>!'::Send, {U+00E4} ; ä
+>!+'::Send, {U+00C4} ; Ä
+>!;::Send, {U+00F6} ; ö
+>!+;::Send, {U+00D6} ; Ö
+>![::Send, {U+00FC} ; ü
+>!+[::Send, {U+00DC} ; Ü
+>!-::Send, {U+00DF} ; ß
 
 ; Other symbols
->!E::SendInput, {U+20AC} ; €
->!=::SendInput, {U+00B1} ; ±
+>!E::Send, {U+20AC} ; €
+>!=::Send, {U+00B1} ; ±
 
 ; === Alt hotkeys ===================================================================================
 ; Alt+Backspace = Del
 !Backspace::Send, {Del}
 
 ; Alt+1/2 = navigating between desktops
-!1::SendEvent, {LWin down}{LCtrl down}{Left down}{Lwin up}{LCtrl up}{Left up}
-!2::SendEvent, {LWin down}{LCtrl down}{Right down}{LWin up}{LCtrl up}{Right up}
+!1::Send, {LWin down}{LCtrl down}{Left down}{Lwin up}{LCtrl up}{Left up}
+!2::Send, {LWin down}{LCtrl down}{Right down}{LWin up}{LCtrl up}{Right up}
 
 ; Alt+` to open Task View
 !SC29::Send, #{Tab}
 
 ; Alt+ZXASD media keys
-!Z::SendInput, {Volume_Down}
-!X::SendInput, {Volume_Up}
-!A::SendInput, {Media_Prev}
-!S::SendInput, {Media_Play_Pause}
-!D::SendInput, {Media_Next}
+!Z::Send, {Volume_Down}
+!X::Send, {Volume_Up}
+!A::Send, {Media_Prev}
+!S::Send, {Media_Play_Pause}
+!D::Send, {Media_Next}
 
 ; Alt+IJKL = arrows
-; *!I::SendInput, {Blind}{AltUp}{Up}{AltDown}
-!I::SendInput, {Up}
-^!I::SendInput, ^{Up}
-+!I::SendInput, +{Up}
-#!I::SendInput, #{Up}
-^+!I::SendInput, ^+{Up}
-^#!I::SendInput, ^#{Up}
-+#!I::SendInput, +#{Up}
+; *!I::Send, {Blind}{AltUp}{Up}{AltDown}
+!I::Send, {Up}
+^!I::Send, ^{Up}
++!I::Send, +{Up}
+#!I::Send, #{Up}
+^+!I::Send, ^+{Up}
+^#!I::Send, ^#{Up}
++#!I::Send, +#{Up}
 
-!K::SendInput, {Down}
-^!K::SendInput, ^{Down}
-+!K::SendInput, +{Down}
-#!K::SendInput, #{Down}
-^+!K::SendInput, ^+{Down}
-^#!K::SendInput, ^#{Down}
-+#!K::SendInput, +#{Down}
+!K::Send, {Down}
+^!K::Send, ^{Down}
++!K::Send, +{Down}
+#!K::Send, #{Down}
+^+!K::Send, ^+{Down}
+^#!K::Send, ^#{Down}
++#!K::Send, +#{Down}
 
-!J::SendInput, {Left}
-^!J::SendInput, ^{Left}
-+!J::SendInput, +{Left}
-#!J::SendInput, #{Left}
-^+!J::SendInput, ^+{Left}
-^#!J::SendInput, ^#{Left}
-+#!J::SendInput, +#{Left}
+!J::Send, {Left}
+^!J::Send, ^{Left}
++!J::Send, +{Left}
+#!J::Send, #{Left}
+^+!J::Send, ^+{Left}
+^#!J::Send, ^#{Left}
++#!J::Send, +#{Left}
 
-!L::SendInput, {Right}
-^!L::SendInput, ^{Right}
-+!L::SendInput, +{Right}
-#!L::SendInput, #{Right}
-^+!L::SendInput, ^+{Right}
-^#!L::SendInput, ^#{Right}
-+#!L::SendInput, +#{Right}
+!L::Send, {Right}
+^!L::Send, ^{Right}
++!L::Send, +{Right}
+#!L::Send, #{Right}
+^+!L::Send, ^+{Right}
+^#!L::Send, ^#{Right}
++#!L::Send, +#{Right}
 
 ; Alt+8, = 5xUp/5xDown
-!8::SendInput, {Up 5}
-^!8::SendInput, ^{Up 5}
-+!8::SendInput, +{Up 5}
-#!8::SendInput, #{Up 5}
-^+!8::SendInput, ^+{Up 5}
-^#!8::SendInput, ^#{Up 5}
-+#!8::SendInput, +#{Up 5}
+!8::Send, {Up 5}
+^!8::Send, ^{Up 5}
++!8::Send, +{Up 5}
+#!8::Send, #{Up 5}
+^+!8::Send, ^+{Up 5}
+^#!8::Send, ^#{Up 5}
++#!8::Send, +#{Up 5}
 
-!,::SendInput, {Down 5}
-^!,::SendInput, ^{Down 5}
-+!,::SendInput, +{Down 5}
-#!,::SendInput, #{Down 5}
-^+!,::SendInput, ^+{Down 5}
-^#!,::SendInput, ^#{Down 5}
-+#!,::SendInput, +#{Down 5}
+!,::Send, {Down 5}
+^!,::Send, ^{Down 5}
++!,::Send, +{Down 5}
+#!,::Send, #{Down 5}
+^+!,::Send, ^+{Down 5}
+^#!,::Send, ^#{Down 5}
++#!,::Send, +#{Down 5}
 
 ; Alt+H; = Home/End
-!H::SendInput, {Home}
-^!H::SendInput, ^{Home}
-+!H::SendInput, +{Home}
-#!H::SendInput, #{Home}
-^+!H::SendInput, ^+{Home}
-^#!H::SendInput, ^#{Home}
-+#!H::SendInput, +#{Home}
+!H::Send, {Home}
+^!H::Send, ^{Home}
++!H::Send, +{Home}
+#!H::Send, #{Home}
+^+!H::Send, ^+{Home}
+^#!H::Send, ^#{Home}
++#!H::Send, +#{Home}
 
-!;::SendInput, {End}
-^!;::SendInput, ^{End}
-+!;::SendInput, +{End}
-#!;::SendInput, #{End}
-^+!;::SendInput, ^+{End}
-^#!;::SendInput, ^#{End}
-+#!;::SendInput, +#{End}
+!;::Send, {End}
+^!;::Send, ^{End}
++!;::Send, +{End}
+#!;::Send, #{End}
+^+!;::Send, ^+{End}
+^#!;::Send, ^#{End}
++#!;::Send, +#{End}
 
 ; Alt+UO = Ctrl+arrows
-!U::SendInput, ^{Left}
-+!U::SendInput, +^{Left}
-#!U::SendInput, #^{Left}
-+#!U::SendInput, +#^{Left}
+; StickyNotes not compatible with SendInput
+!U::SendEvent, ^{Left}
++!U::SendEvent, +^{Left}
+#!U::SendEvent, #^{Left}
++#!U::SendEvent, +#^{Left}
 
-!O::SendInput, ^{Right}
-+!O::SendInput, +^{Right}
-#!O::SendInput, #^{Right}
-+#!O::SendInput, +#^{Right}
+!O::SendEvent, ^{Right}
++!O::SendEvent, +^{Right}
+#!O::SendEvent, #^{Right}
++#!O::SendEvent, +#^{Right}
 
 
 ; === Functions ===================================================================================
