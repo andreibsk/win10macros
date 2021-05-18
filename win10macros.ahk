@@ -1,4 +1,4 @@
-﻿#SingleInstance, force
+#SingleInstance, force
 #MaxThreadsPerHotkey 2
 
 ; Ctrl+Alt+F12 terminates the script.
@@ -35,6 +35,26 @@ VSCodeGoTo() {
 	if singleMButtonWait {
 		singleMButtonWait := false
 		SendInput, ^{F12}
+	}
+	return
+}
+
+$RButton::VSCodeFoldLevel3()
+VSCodeFoldLevel3() {
+	static singleRButtonWait := false
+
+	if singleRButtonWait {
+		singleRButtonWait := false
+		SendEvent, {Esc}^k^3
+		return
+	}
+
+	singleRButtonWait := true
+	Sleep, 150
+
+	if singleRButtonWait {
+		singleRButtonWait := false
+		SendEvent, {RButton}
 	}
 	return
 }
