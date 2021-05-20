@@ -4,7 +4,7 @@
 #MaxThreadsPerHotkey 2
 
 SendMode, Input
-SetKeyDelay, -1 ; No delay for SendEvent calls
+SetKeyDelay, 1 ; Small delay for SendEvent calls
 
 ; https://www.autohotkey.com/docs/Hotkeys.htm#Symbols
 
