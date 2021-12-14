@@ -2,6 +2,7 @@
 #Warn
 #SingleInstance, force
 #MaxThreadsPerHotkey 2
+#MaxHotkeysPerInterval 200
 
 ; Vertical margin width
 MarginWidth := 10
