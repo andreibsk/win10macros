@@ -15,59 +15,59 @@ SetKeyDelay, 1 ; Small delay for SendEvent calls
 ^!F12::ExitApp
 
 #If IsMouseInVerticalMargin() && (!IsActiveWindowFullScreen() || IsActiveWindowFullScreenException())
-; MouseWheel = Volume adjust
-WheelUp::Send, {Volume_Up}
-WheelDown::Send, {Volume_Down}
+	; MouseWheel = Volume adjust
+	WheelUp::Send, {Volume_Up}
+	WheelDown::Send, {Volume_Down}
 
 #If IsMouseInVerticalMargin() && (!IsActiveWindowFullScreen() || IsActiveWindowFullScreenException()) && !IsActiveWindowMediaKeysException()
-; Right click = Next
-RButton::Send, {Media_Next}
-; Middle click = Play/Pause
-MButton::Send, {Media_Play_Pause}
+	; Right click = Next
+	RButton::Send, {Media_Next}
+	; Middle click = Play/Pause
+	MButton::Send, {Media_Play_Pause}
 
 #If IsMouseOverSpotify()
-MButton::Send, {Media_Next}
+	MButton::Send, {Media_Next}
 
 #If IsMouseOverVSCode()
-~$MButton::VSCodeGoTo()
-VSCodeGoTo() {
-	static singleMButtonWait := false
+	~$MButton::VSCodeGoTo()
+	VSCodeGoTo() {
+		static singleMButtonWait := false
 
-	if singleMButtonWait {
-		singleMButtonWait := false
-		Send, {F12}
+		if singleMButtonWait {
+			singleMButtonWait := false
+			Send, {F12}
+			return
+		}
+
+		singleMButtonWait := true
+		Sleep, 150
+
+		if singleMButtonWait {
+			singleMButtonWait := false
+			Send, ^{F12}
+		}
 		return
 	}
 
-	singleMButtonWait := true
-	Sleep, 150
+	$RButton::VSCodeFoldLevel3()
+	VSCodeFoldLevel3() {
+		static singleRButtonWait := false
 
-	if singleMButtonWait {
-		singleMButtonWait := false
-		Send, ^{F12}
-	}
-	return
-}
+		if singleRButtonWait {
+			singleRButtonWait := false
+			Send, {Esc}^k^3
+			return
+		}
 
-$RButton::VSCodeFoldLevel3()
-VSCodeFoldLevel3() {
-	static singleRButtonWait := false
+		singleRButtonWait := true
+		Sleep, 150
 
-	if singleRButtonWait {
-		singleRButtonWait := false
-		Send, {Esc}^k^3
+		if singleRButtonWait {
+			singleRButtonWait := false
+			Send, {RButton}
+		}
 		return
 	}
-
-	singleRButtonWait := true
-	Sleep, 150
-
-	if singleRButtonWait {
-		singleRButtonWait := false
-		Send, {RButton}
-	}
-	return
-}
 
 #If
 
@@ -195,7 +195,6 @@ VSCodeFoldLevel3() {
 #!O::SendEvent, #^{Right}
 +#!O::SendEvent, +#^{Right}
 
-
 ; === Functions ===================================================================================
 
 IsActiveWindowFullScreenException() {
@@ -204,6 +203,7 @@ IsActiveWindowFullScreenException() {
 	if WinActive("ahk_exe explorer.exe") || WinActive("ahk_exe vlc.exe") || WinActive("ahk_exe chrome.exe")
 		|| WinActive("ahk_exe PlexMediaPlayer.exe") || WinActive("ahk_exe Plex.exe") || WinActive("ahk_exe steam.exe")
 		|| WinActive("ahk_exe Code.exe") || WinActive("ahk_exe Teams.exe") || WinActive("ahk_exe Skype.exe")
+		|| WinActive("ahk_exe JellyfinMediaPlayer.exe") || WinActive("ahk_exe firefox.exe")
 		return true
 
 	return false
@@ -212,7 +212,7 @@ IsActiveWindowFullScreenException() {
 IsActiveWindowMediaKeysException() {
 	WinGetActiveStats, Title, Width, Height, X, Y
 
-	if WinActive("ahk_exe PlexMediaPlayer.exe")
+	if WinActive("ahk_exe PlexMediaPlayer.exe") || WinActive("ahk_exe JellyfinMediaPlayer.exe")
 		return true
 
 	return false
